@@ -1,0 +1,32 @@
+version: '3.9' # optional since v1.27.0
+services:
+  app:
+    image: ekaterina-melnichuk/blog-exercise
+    container_name: blog-exercise
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    env_file:
+      - .env.development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+
+  db:
+    image: postgres
+    container_name: blog-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /var/lib/postgresql/data

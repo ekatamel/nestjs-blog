@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{title}}</h1>
+      <form>
+        <input v-model="value" type="text" />
+        <button type="submit" @click.prevent="sendVote()">Send</button>
+      </form>
+
+      <ul>
+        <li v-for="vote of votes">{{ vote }}</li>
+      </ul>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            title: 'Websockets Votes',
+            value: 1,
+            votes: [-1, 1, 1],
+            socket: null,
+          };
+        },
+        methods: {
+          sendVote() {
+            console.log(`send: ${this.value}`);
+            this.socket.emit('vote', this.value);
+            this.value = '';
+          },
+          receiveVote(vote) {
+            console.log(`rec: ${vote}`);
+            this.votes.push(vote);
+          },
+        },
+        created() {
+          this.socket = io('http://localhost:3000');
+          this.socket.on('vote', (vote) => {
+            this.receiveVote(vote);
+          });
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
