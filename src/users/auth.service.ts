@@ -20,7 +20,7 @@ export class AuthService {
   async signUp(createUserDto: CreateUserDto) {
     const { email, password } = createUserDto;
 
-    const user = await this.usersService.getUserByEmail(email);
+    // const user = await this.usersService.getUserByEmail(email);
 
     // if (user) {
     //   throw new BadRequestException('Email has already been taken');
@@ -48,9 +48,9 @@ export class AuthService {
 
     const user = await this.usersService.getUserByEmail(email);
 
-    if (!user) {
-      throw new NotFoundException("User with this email doesn't exist");
-    }
+    // if (!user) {
+    //   throw new NotFoundException("User with this email doesn't exist");
+    // }
 
     const [salt, hashDB] = user.password.split('.');
 

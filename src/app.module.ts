@@ -39,6 +39,7 @@ import { VotesModule } from './votes/votes.module';
     UsersModule,
     VotesModule,
   ],
+  providers: [],
 })
 export class AppModule {}
 
