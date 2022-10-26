@@ -25,3 +25,7 @@ jobs:
 
       - name: Run TypeScript check
         uses: icrawl/action-tsc@v1
+
+      # Runs a build
+      - name: Run a build
+        run: npm run build
