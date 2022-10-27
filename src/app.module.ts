@@ -2,14 +2,11 @@ import { Module } from '@nestjs/common';
 import { ArticlesModule } from './articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './articles/article.entity';
-import { CommentsModule } from './comments/comments.module';
-import { ImagesModule } from './images/images.module';
-import { UsersModule } from './users/users.module';
-import { User } from './users/user.entity';
-import { Image } from './images/image.entity';
-import { Comment } from './comments/comment.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { VotesModule } from './votes/votes.module';
+import { join } from 'path';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver } from '@nestjs/apollo';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -30,17 +27,16 @@ import { VotesModule } from './votes/votes.module';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
-          entities: [Article, User, Comment, Image],
+          entities: [Article],
         };
       },
     }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      driver: ApolloDriver,
+    }),
     CommentsModule,
-    ImagesModule,
-    UsersModule,
-    VotesModule,
   ],
   providers: [],
 })
 export class AppModule {}
-
-// docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres

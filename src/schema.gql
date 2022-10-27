@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Article {
+  id: String!
+  title: String!
+  perex: String!
+  content: String!
+}
+
+type Comment {
+  id: String!
+  content: String!
+  author: String!
+}
+
+type Query {
+  articles: [Article!]!
+  getArticle(id: String!): Article!
+  comments: [Comment!]!
+  comment(id: String!): Comment!
+}
+
+type Mutation {
+  createArticle(createArticleInput: CreateArticleInput!): Article!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  removeComment(id: String!): Comment!
+}
+
+input CreateArticleInput {
+  title: String!
+  perex: String!
+  content: String!
+}
+
+input CreateCommentInput {
+  content: String!
+  author: String!
+}
