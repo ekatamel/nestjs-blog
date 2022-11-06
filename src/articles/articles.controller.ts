@@ -18,21 +18,41 @@ import { CreateArticleDto } from './dto/create-article-dto';
 import { UpdateArticleDto } from './dto/update-article-dto';
 import { ArticleDto } from './dto/article.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { diskStorage } from 'multer';
 import path = require('path');
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import * as multerGoogleStorage from 'multer-google-storage';
+import { extname } from 'path';
+
+// export const storage2 = {
+//   storage: diskStorage({
+//     destination: './images/articles',
+//     filename: (req, file, cb) => {
+//       const filename: string = path
+//         .parse(file.originalname)
+//         .name.replace(/\s/g, '');
+//       const extension: string = path.parse(file.originalname).ext;
+
+//       cb(null, `${filename}${extension}`);
+//     },
+//   }),
+// };
 
 export const storage = {
-  storage: diskStorage({
-    destination: './images/articles',
+  storage: multerGoogleStorage.storageEngine({
+    projectId: 'phonic-envoy-367811',
+    keyFilename: './src/storage/key.json',
+    bucket: 'blog-images-nestjs',
     filename: (req, file, cb) => {
-      const filename: string = path
-        .parse(file.originalname)
-        .name.replace(/\s/g, '');
-      const extension: string = path.parse(file.originalname).ext;
-
-      cb(null, `${filename}${extension}`);
+      const name = file.originalname.split('.');
+      const fileExtName = extname(file.originalname);
+      const randomName = Array(4)
+        .fill(null)
+        .map(() => {
+          return Math.round(Math.random() * 16).toString(16);
+        })
+        .join('');
+      cb(null, `${name}-${randomName}${fileExtName}`);
     },
   }),
 };

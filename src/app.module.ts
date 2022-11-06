@@ -10,6 +10,7 @@ import { Image } from './images/image.entity';
 import { Comment } from './comments/comment.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { VotesModule } from './votes/votes.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -38,9 +39,8 @@ import { VotesModule } from './votes/votes.module';
     ImagesModule,
     UsersModule,
     VotesModule,
+    StorageModule,
   ],
   providers: [],
 })
 export class AppModule {}
-
-// docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
