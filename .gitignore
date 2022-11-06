@@ -1,6 +1,6 @@
 .env.development
 .env.test
-/storage/key.json
+src/storage/key.json
 
 # compiled output
 /dist
