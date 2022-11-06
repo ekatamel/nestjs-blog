@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './article.entity';
 import { Repository } from 'typeorm';
 import { UpdateArticleDto } from './dto/update-article-dto';
-import { User } from 'src/users/user.entity';
-import { ImagesService } from 'src/images/images.service';
+import { User } from '../users/user.entity';
+import { ImagesService } from '../images/images.service';
 
 @Injectable()
 export class ArticlesService {

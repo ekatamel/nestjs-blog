@@ -35,8 +35,10 @@ export class CommentsService {
       throw new NotFoundException("Comment doesn't exist");
     }
 
-    const votes = comment?.votes.map((vote) => vote.value);
-    return votes?.reduce((a, b) => a + b, 0);
+    return comment.score;
+
+    // const votes = comment?.votes.map((vote) => vote.value);
+    // return votes?.reduce((a, b) => a + b, 0);
   }
 
   // REPLACED BY WEB SOCKET

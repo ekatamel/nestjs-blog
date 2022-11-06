@@ -1181,6 +1181,13 @@
   "resolved" "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz"
   "version" "2.0.1"
 
+"@types/stream-buffers@^3.0.4":
+  "integrity" "sha512-qU/K1tb2yUdhXkLIATzsIPwbtX6BpZk0l3dPW6xqWyhfzzM1ECaQ/8faEnu3CNraLiQ9LHyQQPBGp7N9Fbs25w=="
+  "resolved" "https://registry.npmjs.org/@types/stream-buffers/-/stream-buffers-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "@types/node" "*"
+
 "@types/superagent@*":
   "integrity" "sha512-mu/N4uvfDN2zVQQ5AYJI/g4qxn2bHB6521t1UuH09ShNWjebTqN0ZFuYK9uYjcgmI0dTQEs+Owi1EO6U0OkOZQ=="
   "resolved" "https://registry.npmjs.org/@types/superagent/-/superagent-4.1.15.tgz"
@@ -5358,6 +5365,11 @@
   "integrity" "sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ=="
   "resolved" "https://registry.npmjs.org/statuses/-/statuses-2.0.1.tgz"
   "version" "2.0.1"
+
+"stream-buffers@^3.0.2":
+  "integrity" "sha512-DQi1h8VEBA/lURbSwFtEHnSTb9s2/pwLEaFuNhXwy1Dx3Sa0lOuYT2yNUr4/j2fs8oCAMANtrZ5OrPZtyVs3MQ=="
+  "resolved" "https://registry.npmjs.org/stream-buffers/-/stream-buffers-3.0.2.tgz"
+  "version" "3.0.2"
 
 "stream-events@^1.0.1", "stream-events@^1.0.3":
   "integrity" "sha512-E1GUzBSgvct8Jsb3v2X15pjzN1tYebtbLaMg+eBOUOAxgbLoSbT2NS91ckc5lJD1KfLjId+jXJRgo0qnV5Nerg=="

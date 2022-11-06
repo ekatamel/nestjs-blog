@@ -10,21 +10,22 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { CurrentUser } from 'src/users/decorators/current-user.decorator';
-import { User } from 'src/users/user.entity';
+import { AuthGuard } from '../guards/auth.guard';
+import { CurrentUser } from '../users/decorators/current-user.decorator';
+import { User } from '../users/user.entity';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article-dto';
 import { UpdateArticleDto } from './dto/update-article-dto';
 import { ArticleDto } from './dto/article.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from '../interceptors/serialize.interceptor';
 import path = require('path');
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import * as multerGoogleStorage from 'multer-google-storage';
 import { extname } from 'path';
+import { diskStorage } from 'multer';
 
-// export const storage2 = {
+// export const storage = {
 //   storage: diskStorage({
 //     destination: './images/articles',
 //     filename: (req, file, cb) => {

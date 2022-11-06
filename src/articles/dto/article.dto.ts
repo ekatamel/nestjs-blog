@@ -25,7 +25,7 @@ export class ArticleDto {
 
   @Transform(({ obj }) => obj.image.id)
   @Expose()
-  image: Image;
+  imageId: Image;
 
   @Transform(({ obj }) => obj.user.id)
   @Expose()

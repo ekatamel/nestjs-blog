@@ -23,6 +23,6 @@ export class CreateArticleDto {
   @MinLength(10)
   content: string;
 
-  @IsOptional()
-  file: Express.Multer.File;
+  // @IsOptional()
+  // file: Express.Multer.File;
 }
