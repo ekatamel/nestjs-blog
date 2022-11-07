@@ -2,17 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  id: String!
+  content: String!
+  author: String!
+  articleId: String!
+  article: Article!
+}
+
+type Image {
+  id: String!
+  name: String!
+  articleId: String!
+  article: Article
+}
+
 type Article {
   id: String!
   title: String!
   perex: String!
   content: String!
-}
-
-type Comment {
-  id: String!
-  content: String!
-  author: String!
+  comments: [Comment!]
+  image: Image
 }
 
 type Query {
@@ -20,21 +31,31 @@ type Query {
   getArticle(id: String!): Article!
   comments: [Comment!]!
   comment(id: String!): Comment!
+  image(id: String!): Image!
 }
 
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): Article!
   createComment(createCommentInput: CreateCommentInput!): Comment!
   removeComment(id: String!): Comment!
+  createImage(createImageInput: CreateImageInput!): Image!
+  removeImage(id: String!): Image!
 }
 
 input CreateArticleInput {
   title: String!
   perex: String!
   content: String!
+  imageId: String!
 }
 
 input CreateCommentInput {
   content: String!
   author: String!
+  articleId: String!
+}
+
+input CreateImageInput {
+  name: String!
+  articleId: String!
 }

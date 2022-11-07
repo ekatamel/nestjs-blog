@@ -8,26 +8,14 @@ import {
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateArticleInput {
+export class CreateImageInput {
   // @IsNotEmpty()
   // @IsString()
   // @MinLength(10)
   // @MaxLength(255)
   @Field()
-  title: string;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // @MinLength(10)
-  @Field()
-  perex: string;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // @MinLength(10)
-  @Field()
-  content: string;
+  name: string;
 
   @Field()
-  imageId: string;
+  articleId: string;
 }

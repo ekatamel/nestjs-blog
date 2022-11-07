@@ -7,6 +7,7 @@ import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import { CommentsModule } from './comments/comments.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { CommentsModule } from './comments/comments.module';
       driver: ApolloDriver,
     }),
     CommentsModule,
+    ImagesModule,
   ],
   providers: [],
 })

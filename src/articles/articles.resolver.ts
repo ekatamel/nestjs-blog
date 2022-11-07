@@ -16,7 +16,6 @@ export class ArticlesResolver {
   createArticle(
     @Args('createArticleInput') createArticleInput: CreateArticleInput,
   ) {
-    console.log(createArticleInput);
     return this.articleService.createArticle(createArticleInput);
   }
 

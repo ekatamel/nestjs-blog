@@ -21,4 +21,7 @@ export class CreateCommentInput {
   @MinLength(10)
   @Field()
   author: string;
+
+  @Field()
+  articleId: string;
 }
