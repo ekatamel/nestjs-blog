@@ -11,30 +11,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   envFilePath: `.env.${process.env.NODE_ENV}`,
-    // }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
     ArticlesModule,
-    // TypeOrmModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: (configService: ConfigService) => {
-    //     return {
-    //       type: 'postgres',
-    //       autoLoadEntities: true,
-    //       synchronize: true,
-    //       host: configService.get('DB_HOST'),
-    //       port: configService.get('DB_PORT'),
-    //       username: configService.get('DB_USERNAME'),
-    //       password: configService.get('DB_PASSWORD'),
-    //       database: configService.get('DB_DATABASE'),
-    //       entities: [Article, User, Comment, Image],
-    //     };
-    //   },
-    // }),
-    MongooseModule.forRoot(
-      'mongodb+srv://ekaterina_melnichuk:Habes-Jonas2013@cluster0.ehunkvg.mongodb.net/nestjs-nosql?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        return {
+          uri: configService.get('MONGODB_URI'),
+        };
+      },
+    }),
+
     CommentsModule,
     ImagesModule,
   ],
