@@ -5,15 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './article.entity';
 import { ImagesModule } from 'src/images/images.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CronService } from './cron.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ArticleSchema } from './article.model';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Article]),
+    // TypeOrmModule.forFeature([Article]),
+    MongooseModule.forFeature([{ name: 'Article', schema: ArticleSchema }]),
     ImagesModule,
     ScheduleModule.forRoot(),
   ],
   controllers: [ArticlesController],
-  providers: [ArticlesService, CronService],
+  providers: [ArticlesService],
 })
 export class ArticlesModule {}

@@ -1,4 +1,3 @@
-import { User } from '../users/user.entity';
 import { Comment } from '../comments/comment.entity';
 import {
   Entity,
@@ -30,12 +29,6 @@ export class Article {
 
   @Column()
   lastUpdatedAt: string;
-
-  // article.user
-  @ManyToOne(() => User, (user) => user.articles, {
-    eager: true,
-  })
-  user: User;
 
   // article.comments
   @OneToMany(() => Comment, (comment) => comment.article, {

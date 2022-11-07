@@ -23,11 +23,11 @@ export class ArticleDto {
   @Expose()
   comments: Comment[];
 
-  @Transform(({ obj }) => obj.image.id)
-  @Expose()
-  imageId: Image;
+  // @Transform(({ obj }) => obj.image.id)
+  // @Expose()
+  // imageId: Image;
 
-  @Transform(({ obj }) => obj.user.id)
-  @Expose()
-  userId: string;
+  // @Transform(({ obj }) => obj.user.id)
+  // @Expose()
+  // userId: string;
 }

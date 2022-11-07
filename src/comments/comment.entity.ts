@@ -1,6 +1,4 @@
 import { Article } from '../articles/article.entity';
-import { User } from '../users/user.entity';
-import { Vote } from '../votes/vote.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -29,12 +27,4 @@ export class Comment {
   // comment.article
   @ManyToOne(() => Article, (article) => article.comments)
   article: Article;
-
-  // comment.user
-  @ManyToOne(() => User, (user) => user.comments)
-  user: User;
-
-  //comment.votes
-  @OneToMany(() => Vote, (vote) => vote.comment)
-  votes: Vote[];
 }
