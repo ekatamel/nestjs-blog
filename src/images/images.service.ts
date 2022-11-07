@@ -1,43 +1,38 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Image } from './image.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Image } from './image.model';
 
 @Injectable()
 export class ImagesService {
-  constructor(
-    @InjectRepository(Image)
-    private imagesRepository: Repository<Image>,
-  ) {}
+  constructor(@InjectModel('Image') private imageModel: Model<Image>) {}
 
   async createImage(file: Express.Multer.File) {
-    const image = this.imagesRepository.create({
+    const image = new this.imageModel({
       name: file.filename,
     });
 
-    await this.imagesRepository.save(image);
+    const result = await image.save();
 
-    return image;
+    return result;
   }
   async getImage(id: string) {
-    const image = await this.imagesRepository.findOneBy({ id });
+    const image = await this.imageModel.findOne({ id });
 
     if (!image) {
-      throw new NotFoundException("Comment doesn't exist");
+      throw new NotFoundException("Image doesn't exist");
     }
 
     return image;
   }
 
   async deleteImage(id: string) {
-    const result = await this.imagesRepository.delete({ id });
-
-    if (result.affected == 0) {
+    const image = this.getImage(id);
+    if (!image) {
       throw new NotFoundException("Image doesn't exist");
     }
-
-    //OR
-    // const image = this.getImage(imageId);
-    // await this.imagesRepository.remove(image);
+    await this.imageModel.remove(image);
   }
 }

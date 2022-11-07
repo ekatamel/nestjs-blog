@@ -1,67 +1,59 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
-import { Comment } from './comment.entity';
 import { CreateCommentDto } from './dto/create-comment-dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Comment } from './comment.model';
 
 @Injectable()
 export class CommentsService {
-  constructor(
-    @InjectRepository(Comment)
-    private commentsRepository: Repository<Comment>,
-  ) {}
+  constructor(@InjectModel('Comment') private commentModel: Model<Comment>) {}
 
-  async createComment(createCommentDto: CreateCommentDto, user: User) {
+  async createComment(createCommentDto: CreateCommentDto) {
     const { articleId, content } = createCommentDto;
 
-    const newComment = this.commentsRepository.create({
+    const newComment = new this.commentModel({
       articleId,
-      user,
       content,
       postedAt: Date.now().toString(),
       score: 0,
     });
 
-    await this.commentsRepository.save(newComment);
+    const result = await newComment.save();
 
-    return newComment;
+    return result;
   }
 
   async getTotalScore(id: string) {
-    const comment = await this.commentsRepository.findOneBy({ id });
+    const comment = await this.commentModel.findOne({ id });
 
     if (!comment) {
       throw new NotFoundException("Comment doesn't exist");
     }
 
     return comment.score;
-
-    // const votes = comment?.votes.map((vote) => vote.value);
-    // return votes?.reduce((a, b) => a + b, 0);
   }
 
-  // REPLACED BY WEB SOCKET
+  async upvoteComment(id: string) {
+    const comment = await this.commentModel.findOne({ id });
+    if (!comment) {
+      throw new NotFoundException("Comment doesn't exist");
+    }
+    comment.score = comment.score + 1;
+    const result = await comment.save();
 
-  // async upvoteComment(id: string) {
-  //   const comment = await this.commentsRepository.findOneBy({ id });
-  //   if (!comment) {
-  //     throw new NotFoundException("Comment doesn't exist");
-  //   }
-  //   await this.commentsRepository.update(id, {
-  //     score: comment.score + 1,
-  //   });
-  //   return comment;
-  // }
+    return result;
+  }
 
-  // async downvoteComment(id: string) {
-  //   const comment = await this.commentsRepository.findOneBy({ id });
-  //   if (!comment) {
-  //     throw new NotFoundException("Comment doesn't exist");
-  //   }
-  //   await this.commentsRepository.update(id, {
-  //     score: comment.score - 1,
-  //   });
-  //   return comment;
-  // }
+  async downvoteComment(id: string) {
+    const comment = await this.commentModel.findOne({ id });
+    if (!comment) {
+      throw new NotFoundException("Comment doesn't exist");
+    }
+    comment.score = comment.score - 1;
+    const result = await comment.save();
+
+    return result;
+  }
 }

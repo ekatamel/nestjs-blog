@@ -4,13 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './articles/article.entity';
 import { CommentsModule } from './comments/comments.module';
 import { ImagesModule } from './images/images.module';
-import { UsersModule } from './users/users.module';
-import { User } from './users/user.entity';
 import { Image } from './images/image.entity';
 import { Comment } from './comments/comment.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { VotesModule } from './votes/votes.module';
-import { StorageModule } from './storage/storage.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -19,27 +16,17 @@ import { StorageModule } from './storage/storage.module';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     ArticlesModule,
-    TypeOrmModule.forRootAsync({
+    MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         return {
-          type: 'postgres',
-          autoLoadEntities: true,
-          synchronize: true,
-          host: configService.get('DB_HOST'),
-          port: configService.get('DB_PORT'),
-          username: configService.get('DB_USERNAME'),
-          password: configService.get('DB_PASSWORD'),
-          database: configService.get('DB_DATABASE'),
-          entities: [Article, User, Comment, Image],
+          uri: configService.get('MONGODB_URI'),
         };
       },
     }),
+
     CommentsModule,
     ImagesModule,
-    UsersModule,
-    VotesModule,
-    StorageModule,
   ],
   providers: [],
 })
