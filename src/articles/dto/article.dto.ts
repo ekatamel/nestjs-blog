@@ -1,5 +1,5 @@
 import { Expose, Transform } from 'class-transformer';
-import { Image } from 'src/images/image.entity';
+import { Image } from '../../images/image.entity';
 
 export class ArticleDto {
   @Expose()

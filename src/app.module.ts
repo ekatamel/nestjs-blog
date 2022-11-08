@@ -10,7 +10,6 @@ import { Image } from './images/image.entity';
 import { Comment } from './comments/comment.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { VotesModule } from './votes/votes.module';
-import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -39,7 +38,6 @@ import { StorageModule } from './storage/storage.module';
     ImagesModule,
     UsersModule,
     VotesModule,
-    StorageModule,
   ],
   providers: [],
 })
