@@ -14,8 +14,8 @@ export class CreateImageInput {
   // @MinLength(10)
   // @MaxLength(255)
   @Field()
-  name: string;
+  imageName: string;
 
-  @Field()
-  articleId: string;
+  // @Field({ nullable: true })
+  // articleId: string;
 }

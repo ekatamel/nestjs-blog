@@ -30,4 +30,7 @@ export class CreateArticleInput {
 
   @Field()
   imageId: string;
+
+  // @Field({ nullable: true })
+  // imageId: string;
 }

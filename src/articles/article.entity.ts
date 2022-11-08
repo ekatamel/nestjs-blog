@@ -29,6 +29,10 @@ export class Article {
   @Column()
   content: string;
 
+  @Field({ nullable: true })
+  @Column()
+  imageId: string;
+
   @Field((type) => [Comment], { nullable: true })
   @OneToMany(() => Comment, (comment) => comment.article, { eager: true })
   comments?: Comment[];
@@ -40,4 +44,12 @@ export class Article {
   })
   @JoinColumn()
   image?: Image;
+
+  @Field()
+  @Column()
+  createdAt: string;
+
+  @Field()
+  @Column()
+  lastUpdatedAt: string;
 }

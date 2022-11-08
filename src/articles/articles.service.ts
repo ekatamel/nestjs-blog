@@ -4,10 +4,12 @@ import { Article } from './article.entity';
 import { Repository } from 'typeorm';
 import { UpdateArticleDto } from './dto/update-article-dto';
 import { CreateArticleInput } from './dto/create-article.input';
+import { ImagesService } from 'src/images/images.service';
 
 @Injectable()
 export class ArticlesService {
   constructor(
+    private imageService: ImagesService,
     @InjectRepository(Article) private articlesRepository: Repository<Article>,
   ) {}
 
@@ -22,7 +24,17 @@ export class ArticlesService {
   async createArticle(
     createArticleInput: CreateArticleInput,
   ): Promise<Article> {
-    const newArticle = this.articlesRepository.create(createArticleInput);
+    const { imageId, title, perex, content } = createArticleInput;
+
+    const newArticle = this.articlesRepository.create({
+      title,
+      perex,
+      content,
+      imageId,
+      createdAt: Date.now().toString(),
+      lastUpdatedAt: Date.now().toString(),
+    });
+
     return this.articlesRepository.save(newArticle);
   }
 }

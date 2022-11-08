@@ -11,10 +11,9 @@ export class ImagesService {
   ) {}
 
   async createImage(createImageInput: CreateImageInput) {
-    const { name, articleId } = createImageInput;
+    const { imageName } = createImageInput;
     const image = this.imagesRepository.create({
-      name,
-      articleId,
+      imageName,
     });
 
     await this.imagesRepository.save(image);

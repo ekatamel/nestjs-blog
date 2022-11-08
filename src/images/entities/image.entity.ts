@@ -11,11 +11,11 @@ export class Image {
 
   @Field()
   @Column()
-  name: string;
+  imageName: string;
 
-  @Field()
-  @Column()
-  articleId: string;
+  // @Field({ nullable: true })
+  // @Column()
+  // articleId: string;
 
   @Field((type) => Article, { nullable: true })
   @OneToOne(() => Article, (article) => article.image)

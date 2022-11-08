@@ -12,8 +12,7 @@ type Comment {
 
 type Image {
   id: String!
-  name: String!
-  articleId: String!
+  imageName: String!
   article: Article
 }
 
@@ -22,24 +21,27 @@ type Article {
   title: String!
   perex: String!
   content: String!
+  imageId: String
   comments: [Comment!]
   image: Image
+  createdAt: String!
+  lastUpdatedAt: String!
 }
 
 type Query {
   articles: [Article!]!
   getArticle(id: String!): Article!
+  image(id: String!): Image!
   comments: [Comment!]!
   comment(id: String!): Comment!
-  image(id: String!): Image!
 }
 
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): Article!
-  createComment(createCommentInput: CreateCommentInput!): Comment!
-  removeComment(id: String!): Comment!
   createImage(createImageInput: CreateImageInput!): Image!
   removeImage(id: String!): Image!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  removeComment(id: String!): Comment!
 }
 
 input CreateArticleInput {
@@ -49,13 +51,12 @@ input CreateArticleInput {
   imageId: String!
 }
 
+input CreateImageInput {
+  imageName: String!
+}
+
 input CreateCommentInput {
   content: String!
   author: String!
-  articleId: String!
-}
-
-input CreateImageInput {
-  name: String!
   articleId: String!
 }
